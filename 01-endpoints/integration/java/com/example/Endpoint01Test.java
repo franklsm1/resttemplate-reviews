@@ -24,10 +24,12 @@ public class Endpoint01Test {
     public void it_returns_correctly_when_both_parameters_are_present() throws Exception {
         ResponseEntity<String> response = template.getForEntity("/drivers?status=inactive&rating=4", String.class);
 
+        assertThat(response.getStatusCode(), equalTo(HttpStatus.OK));
         assertThat(response.getBody(), containsString("Looking for inactive drivers with a rating of 4"));
 
         ResponseEntity<String> response2 = template.getForEntity("/drivers?status=paused&rating=3", String.class);
 
+        assertThat(response2.getStatusCode(), equalTo(HttpStatus.OK));
         assertThat(response2.getBody(), containsString("Looking for paused drivers with a rating of 3"));
     }
 
@@ -35,6 +37,7 @@ public class Endpoint01Test {
     public void it_defaults_status_to_active() throws Exception {
         ResponseEntity<String> response = template.getForEntity("/drivers?rating=12", String.class);
 
+        assertThat(response.getStatusCode(), equalTo(HttpStatus.OK));
         assertThat(response.getBody(), containsString("Looking for active drivers with a rating of 12"));
     }
 

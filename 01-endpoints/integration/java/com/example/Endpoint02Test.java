@@ -24,10 +24,12 @@ public class Endpoint02Test {
     public void it_returns_the_correctly_formatted_response() throws Exception {
         ResponseEntity<String> response = template.getForEntity("/drivers/235/trips/2008/04/02", String.class);
 
+        assertThat(response.getStatusCode(), equalTo(HttpStatus.OK));
         assertThat(response.getBody(), containsString("Showing trips for driver 235 on 2008-04-02"));
 
         ResponseEntity<String> response2 = template.getForEntity("/drivers/100/trips/2010/10/11", String.class);
 
+        assertThat(response.getStatusCode(), equalTo(HttpStatus.OK));
         assertThat(response2.getBody(), containsString("Showing trips for driver 100 on 2010-10-11"));
     }
 
