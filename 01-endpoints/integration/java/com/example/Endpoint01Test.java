@@ -15,7 +15,7 @@ import static org.hamcrest.core.IsEqual.equalTo;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class EndpointsTest {
+public class Endpoint01Test {
 
     @Autowired
     private TestRestTemplate template;
