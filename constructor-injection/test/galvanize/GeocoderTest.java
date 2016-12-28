@@ -6,6 +6,7 @@ import static galvanize.Helpers.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import com.galvanize.LatLng;
 import com.galvanize.MapQuestGeocoder;
 import org.junit.Assert;
 import org.junit.Test;
@@ -75,7 +76,7 @@ public class GeocoderTest {
             Constructor addressConstructor = getConstructorForInterface(Address.class, geocoderInterface);
             Object mockedGeocoder = mock(geocoderInterface);
             Method m = geocoderInterface.getDeclaredMethod("geocode");
-            double[] latLng = {1.0, 2.0};
+            LatLng latLng = new LatLng(1.0, 2.0);
             when(m.invoke(mockedGeocoder)).thenReturn(latLng);
             Address address = null;
             if (addressConstructor != null) {
