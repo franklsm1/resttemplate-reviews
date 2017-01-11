@@ -28,15 +28,15 @@ repositories {
 }
 
 sourceSets {
-    integration {
-        java.srcDir file('integration/java')
-        resources.srcDir file('integration/resources')
+    assessment {
+        java.srcDir file('assessment/java')
+        resources.srcDir file('assessment/resources')
     }
 }
 
-task integration(type: Test) {
-    testClassesDir = sourceSets.integration.output.classesDir
-    classpath = sourceSets.integration.runtimeClasspath
+task assess(type: Test) {
+    testClassesDir = sourceSets.assessment.output.classesDir
+    classpath = sourceSets.assessment.runtimeClasspath
 }
 
 ext {
@@ -130,8 +130,8 @@ dependencies {
     testCompile('org.springframework.boot:spring-boot-starter-test')
     testCompile('com.jayway.jsonpath:json-path-assert:2.2.0')
 
-    integrationCompile sourceSets.main.output
-    integrationCompile configurations.testCompile
-    integrationCompile sourceSets.test.output
-    integrationRuntime configurations.testRuntime
+    assessmentCompile sourceSets.main.output
+    assessmentCompile configurations.testCompile
+    assessmentCompile sourceSets.test.output
+    assessmentRuntime configurations.testRuntime
 }

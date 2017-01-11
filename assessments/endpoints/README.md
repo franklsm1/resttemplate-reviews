@@ -8,7 +8,14 @@ The CTO of TrollRide is a forward-thinking individual who has decided to use Spr
 
 You decide to accept the challenge!
 
-## Endpoint #1
+## Technical Requirements
+
+- You must write `@WebMvcTest`s for all endpoints
+- You can name your controllers whatever you like
+
+## Features
+
+### Endpoint #1
 
 - Create a route for `GET /drivers`
 - Accept two query parameters, `status` and `rating`
@@ -59,7 +66,7 @@ Looking for active drivers with a rating of 12
 ```
 
 
-## Endpoint #2
+### Endpoint #2
 
 - Create a route for `GET /drivers/235/trips/2008/04/02`
 - Accept path variables for `driverId`, `year`, `month` and `day`
@@ -79,7 +86,7 @@ Then return:
 Showing trips for driver 235 on 2008-04-02
 ```
 
-## Endpoint #3
+### Endpoint #3
 
 - Create a route for `POST /drivers` with a JSON body of:
 
@@ -114,7 +121,7 @@ Then return:
 }
 ```
 
-## Endpoint #4
+### Endpoint #4
 
 - Create a route for `POST /drivers/235/trips?verified=true` with a JSON body of:
  
