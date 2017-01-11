@@ -41,12 +41,12 @@ task assess(type: Test) {
 
 ext {
     limits = [
-            'instruction': 75,
-            'branch'     : 75,
-            'line'       : 75,
-            'complexity' : 80,
-            'method'     : 80,
-            'class'      : 97.5
+            'instruction': 90,
+            'branch'     : 90,
+            'line'       : 90,
+            'complexity' : 90,
+            'method'     : 90,
+            'class'      : 90
     ]
 }
 
@@ -123,7 +123,6 @@ jacocoTestReport {
     }
 
 }
-
 
 dependencies {
     compile('org.springframework.boot:spring-boot-starter-web')
