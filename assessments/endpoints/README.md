@@ -8,6 +8,12 @@ The CTO of TrollRide is a forward-thinking individual who has decided to use Spr
 
 You decide to accept the challenge!
 
+## How will you know you are done?
+
+Run `./gradlew test jacoco` to run _your_ tests and check coverage.
+
+Run `./gradlew assess` to run our test suite that verifies that your code meets the requirements.
+
 ## Technical Requirements
 
 - You must write `@WebMvcTest`s for all endpoints
