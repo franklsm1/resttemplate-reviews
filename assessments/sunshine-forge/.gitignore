@@ -4,6 +4,12 @@ gradle/
 gradlew*
 build/
 
+# node
+sunshine-forge-client/node_modules
+
+# React artifacts
+src/main/resources/static
+
 ### STS ###
 .apt_generated
 .classpath
