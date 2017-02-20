@@ -34,12 +34,18 @@ public class GalvanizeApiTest {
     public void clearDatabase() {
         this.jdbcTemplate.execute("SET REFERENTIAL_INTEGRITY FALSE");
 
-        List<Map<String, Object>> rows = this.jdbcTemplate.queryForList("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES  where TABLE_SCHEMA='PUBLIC'");
+        List<Map<String, Object>> rows = this.jdbcTemplate.queryForList("SELECT TABLE_NAME " +
+                "FROM INFORMATION_SCHEMA.TABLES " +
+                "WHERE TABLE_SCHEMA='PUBLIC'");
+
         for (Map<String, Object> row : rows) {
             this.jdbcTemplate.execute("TRUNCATE TABLE " + row.get("TABLE_NAME"));
         }
 
-        List<Map<String, Object>> sequenceRows = this.jdbcTemplate.queryForList("SELECT SEQUENCE_NAME FROM INFORMATION_SCHEMA.SEQUENCES WHERE SEQUENCE_SCHEMA='PUBLIC';");
+        List<Map<String, Object>> sequenceRows = this.jdbcTemplate.queryForList("SELECT SEQUENCE_NAME " +
+                "FROM INFORMATION_SCHEMA.SEQUENCES " +
+                "WHERE SEQUENCE_SCHEMA='PUBLIC';");
+
         for (Map<String, Object> row : sequenceRows) {
             this.jdbcTemplate.execute("ALTER SEQUENCE " + row.get("SEQUENCE_NAME") + " RESTART WITH 1");
         }
