@@ -65,11 +65,7 @@ When given:
 GET /drivers
 ```
 
-Then return a 500 response
-
-```
-Looking for active drivers with a rating of 12
-```
+Then return a "400 Bad Request"
 
 
 ### Endpoint #2
@@ -113,7 +109,7 @@ When given a request like:
 POST /drivers
 
 {
-  "fname": "Ty", 
+  "fname": "Ty",
   "lname": "Taylor"
 }
 ```
@@ -130,16 +126,16 @@ Then return:
 ### Endpoint #4
 
 - Create a route for `POST /drivers/235/trips?verified=true` with a JSON body of:
- 
+
  ```json
  {"trip": {"date": "2016-03-04", "startAddress": "123 Main", "endAddress": "234 Elm"}}
  ```
-- Render the JSON response 
+- Render the JSON response
 
   ```json
   {
     "driver": {
-      "id": <driverId> 
+      "id": <driverId>
     },
     "trip": {
       "startAddress": "<startAddress>",
@@ -159,8 +155,8 @@ POST /drivers/235/trips?verified=false
 
 {
   "trip": {
-    "date": "2016-03-04", 
-    "startAddress": "123 Main", 
+    "date": "2016-03-04",
+    "startAddress": "123 Main",
     "endAddress": "234 Elm"
   }
 }
@@ -171,7 +167,7 @@ Then return:
 ```json
 {
   "driver": {
-    "id": 235 
+    "id": 235
   },
   "trip": {
     "startAddress": "123 Main",
