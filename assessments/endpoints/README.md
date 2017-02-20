@@ -98,7 +98,7 @@ Showing trips for driver 235 on 2008-04-02
 - Render the JSON response
 
   ```json
-  {"firstName": "some last name", "lastName": "some last name"}
+  {"firstName": "some first name", "lastName": "some last name"}
   ```
 
 **Example**
