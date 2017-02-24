@@ -6,6 +6,7 @@ build/
 
 # node
 sunshine-forge-client/node_modules
+npm-debug.log
 
 # React artifacts
 src/main/resources/static
