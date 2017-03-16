@@ -20,6 +20,7 @@ jar {
     baseName = '01-endpoints'
     version = '0.0.1-SNAPSHOT'
 }
+
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
@@ -34,94 +35,20 @@ sourceSets {
     }
 }
 
-task assess(type: Test) {
-    testClassesDir = sourceSets.assessment.output.classesDir
-    classpath = sourceSets.assessment.runtimeClasspath
-}
-
-ext {
-    limits = [
-            'instruction': 90,
-            'branch'     : 90,
-            'line'       : 90,
-            'complexity' : 90,
-            'method'     : 90,
-            'class'      : 90
-    ]
-}
-
-jacocoTestReport {
-    reports {
-        xml.enabled true
-    }
-
-    // taken from https://github.com/springfox/springfox/blob/master/gradle/coverage.gradle
-    // TODO: When [this PR](https://github.com/gradle/gradle/issues/824) gets released
-    // we can get automated coverage from the jacoco plugin
-    doLast {
-        def report = file("${jacoco.reportsDir}/test/jacocoTestReport.xml")
-        def htmlReport = file("${jacoco.reportsDir}/test/html/index.html")
-        logger.lifecycle("Checking coverage results: ${report}")
-        logger.lifecycle("Html report: ${htmlReport}")
-
-        def parser = new XmlParser()
-        parser.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
-        parser.setFeature("http://apache.org/xml/features/disallow-doctype-decl", false)
-        def results = parser.parse(report)
-
-        def percentage = {
-            if (null == it) {
-                //if it does not exist assume 100%
-                return 100
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            limit {
+                minimum = 0.9
             }
-            def covered = it.'@covered' as Double
-            def missed = it.'@missed' as Double
-            ((covered / (covered + missed)) * 100).round(2)
-        }
-
-        def counters = results.counter
-        def metrics = [:]
-        metrics << [
-                'instruction': percentage(counters.find { it.'@type'.equals('INSTRUCTION') }),
-                'branch'     : percentage(counters.find { it.'@type'.equals('BRANCH') }),
-                'line'       : percentage(counters.find { it.'@type'.equals('LINE') }),
-                'complexity' : percentage(counters.find { it.'@type'.equals('COMPLEXITY') }),
-                'method'     : percentage(counters.find { it.'@type'.equals('METHOD') }),
-                'class'      : percentage(counters.find { it.'@type'.equals('CLASS') })
-        ]
-
-
-        def failures = []
-        def canIncrease = []
-        metrics.each {
-            def limit = limits[it.key]
-            if (it.value < limit) {
-                failures.add("- ${it.key} coverage rate is: ${it.value}%, minimum is ${limit}%")
-            }
-            if (it.value > limit + 1) {
-                canIncrease.add("- ${it.key} coverage rate is: ${it.value}%, minimum is ${limit}%")
-            }
-        }
-
-        if (failures) {
-            logger.quiet("------------------ Code Coverage Failed -----------------------")
-            failures.each {
-                logger.quiet(it)
-            }
-            logger.quiet("---------------------------------------------------------------")
-            if (!project.hasProperty("skipCoverage")) {
-                throw new GradleException("Code coverage failed")
-            }
-        }
-        if (canIncrease) {
-            logger.quiet("------------------ Code Coverage Improved! -----------------------")
-            canIncrease.each {
-                logger.quiet(it)
-            }
-            logger.quiet("---------------------------------------------------------------")
         }
     }
+}
 
+test {
+    testLogging {
+        exceptionFormat = 'full'
+    }
 }
 
 dependencies {
@@ -133,4 +60,16 @@ dependencies {
     assessmentCompile configurations.testCompile
     assessmentCompile sourceSets.test.output
     assessmentRuntime configurations.testRuntime
+}
+
+task assess(type: Test) {
+    testClassesDir = sourceSets.assessment.output.classesDir
+    classpath = sourceSets.assessment.runtimeClasspath
+}
+
+test.finalizedBy(jacocoTestReport)
+jacocoTestReport.finalizedBy(jacocoTestCoverageVerification)
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '3.4.1'
 }

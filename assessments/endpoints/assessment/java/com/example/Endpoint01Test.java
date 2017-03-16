@@ -37,7 +37,7 @@ public class Endpoint01Test {
     public void it_defaults_status_to_active() throws Exception {
         ResponseEntity<String> response = template.getForEntity("/drivers?rating=12", String.class);
 
-        assertThat(response.getStatusCode(), equalTo(HttpStatus.OK));
+        assertThat("/drivers?rating=12 did not return a 200", response.getStatusCode(), equalTo(HttpStatus.OK));
         assertThat(response.getBody(), containsString("Looking for active drivers with a rating of 12"));
     }
 
@@ -45,6 +45,6 @@ public class Endpoint01Test {
     public void it_errors_out_if_rating_is_missing() throws Exception {
         ResponseEntity<String> response = template.getForEntity("/drivers", String.class);
 
-        assertThat(response.getStatusCode(), equalTo(HttpStatus.BAD_REQUEST));
+        assertThat("/drivers did not return a BAD_REQUEST", response.getStatusCode(), equalTo(HttpStatus.BAD_REQUEST));
     }
 }
