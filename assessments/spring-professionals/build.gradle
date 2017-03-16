@@ -15,11 +15,7 @@ apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: "jacoco"
 
-jar {
-    baseName = 'crud-api-users'
-    version = '0.0.1-SNAPSHOT'
-}
-
+version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 
 repositories {
@@ -51,14 +47,15 @@ test {
 }
 
 dependencies {
+    compile 'com.google.code.gson:gson:2.8.0'
     compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    compile('org.springframework.boot:spring-boot-starter-security')
     compile('org.springframework.boot:spring-boot-starter-web')
+    runtime('org.springframework.boot:spring-boot-devtools')
     runtime('mysql:mysql-connector-java')
+    testCompile('org.apache.httpcomponents:httpclient')
     testCompile('org.springframework.boot:spring-boot-starter-test')
-    compile('com.google.code.gson:gson:2.8.0')
-
-    // added in order to provide PATCH support to RestTemplates
-    compile 'org.apache.httpcomponents:httpclient:4.5.2'
+    testCompile('org.springframework.security:spring-security-test')
 
     assessmentCompile sourceSets.main.output
     assessmentCompile configurations.testCompile
