@@ -53,7 +53,7 @@ test {
 dependencies {
     compile('org.springframework.boot:spring-boot-starter-web')
     testCompile('org.springframework.boot:spring-boot-starter-test')
-    testCompile('com.jayway.jsonpath:json-path-assert:2.2.0')
+    testCompile 'com.google.code.gson:gson:2.8.0'
 
     assessmentCompile sourceSets.main.output
     assessmentCompile configurations.testCompile
