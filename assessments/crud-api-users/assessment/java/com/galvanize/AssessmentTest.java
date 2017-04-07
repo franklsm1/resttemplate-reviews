@@ -60,7 +60,7 @@ public class AssessmentTest extends GalvanizeApiTestHelpers {
         JsonObject createdUser = post("/users", payload).getAsJsonObject();
         String idFromCreate = createdUser.get("id").getAsString();
 
-        JsonObject showUser = get("/users/" + idFromCreate).getAsJsonObject();
+        JsonObject showUser = get("/users/" + idFromCreate).getAsJsonObject().getAsJsonObject("user");
 
         assertThat(showUser.get("id").getAsString(), equalTo(idFromCreate));
         assertThat(showUser.get("email").getAsString(), equalTo(user.get("email").getAsString()));
@@ -88,7 +88,7 @@ public class AssessmentTest extends GalvanizeApiTestHelpers {
         JsonObject patchUser = patch("/users/" + idFromCreate, user).getAsJsonObject();
         ensurePasswordIsNotPresent(patchUser);
 
-        JsonObject showUser = get("/users/" + idFromCreate).getAsJsonObject();
+        JsonObject showUser = get("/users/" + idFromCreate).getAsJsonObject().getAsJsonObject("user");
         ensurePasswordIsNotPresent(showUser);
 
         assertThat(showUser.get("id").getAsString(), equalTo(idFromCreate));
