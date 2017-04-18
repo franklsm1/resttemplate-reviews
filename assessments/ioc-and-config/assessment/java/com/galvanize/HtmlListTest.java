@@ -52,7 +52,7 @@ public class HtmlListTest {
 
         mvc.perform(request)
                 .andExpect(status().isOk())
-                .andExpect(content().string("<ul><li><dl><dt>number</dt><dd>3</dd><dt>boolean</dt><dd>false</dd><dt>string</dt><dd>string</dd></dl</li></ul>"))
+                .andExpect(content().string("<ul><li><dl><dt>number</dt><dd>3</dd><dt>boolean</dt><dd>false</dd><dt>string</dt><dd>string</dd></dl></li></ul>"))
         ;
 
     }
