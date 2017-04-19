@@ -121,7 +121,7 @@ public class MeTests {
         assertThat(professional.has("email"), equalTo(true));
         assertThat(professional.has("publicProfile"), equalTo(true));
 
-        assertThat(professional.has("role"), equalTo(false));
+        assertThat(professional.has("role"), equalTo(true));
         assertThat(professional.has("password"), equalTo(false));
 
     }
