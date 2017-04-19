@@ -14,7 +14,7 @@ public class DemoApplication {
 	}
 
 	@Bean
-	public RestOperations getRestOperations() {
+	public RestTemplate getRestOperations() {
 		return new RestTemplate();
 	}
 
