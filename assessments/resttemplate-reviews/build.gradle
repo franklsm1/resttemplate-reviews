@@ -14,7 +14,6 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
-apply plugin: "jacoco"
 
 jar {
     baseName = 'rest-template-reviews'
@@ -26,23 +25,6 @@ targetCompatibility = 1.8
 
 repositories {
     mavenCentral()
-}
-
-sourceSets {
-    assessment {
-        java.srcDir file('assessment/java')
-        resources.srcDir file('assessment/resources')
-    }
-}
-
-jacocoTestCoverageVerification {
-    violationRules {
-        rule {
-            limit {
-                minimum = 0.9
-            }
-        }
-    }
 }
 
 test {
@@ -57,20 +39,7 @@ dependencies {
     runtime('mysql:mysql-connector-java')
     testCompile('org.springframework.boot:spring-boot-starter-test')
     compile('com.google.code.gson:gson:2.8.0')
-
-    assessmentCompile sourceSets.main.output
-    assessmentCompile configurations.testCompile
-    assessmentCompile sourceSets.test.output
-    assessmentRuntime configurations.testRuntime
 }
-
-task assess(type: Test) {
-    testClassesDir = sourceSets.assessment.output.classesDir
-    classpath = sourceSets.assessment.runtimeClasspath
-}
-
-test.finalizedBy(jacocoTestReport)
-jacocoTestReport.finalizedBy(jacocoTestCoverageVerification)
 
 task wrapper(type: Wrapper) {
     gradleVersion = '3.4.1'
